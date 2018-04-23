@@ -3,6 +3,8 @@ Robo Child
 
 Robo Child is a strategy game where players take care of a robot and train its A.I. with puzzles.
 
+![mockup](docs/robochild-mockup.png)
+
 ## Architecture
 
 A finite state machine is used to model the A.I. for the robot. Here is the state table:
@@ -25,7 +27,7 @@ In the project directory, you can run:
 
 ### `npm run server`
 
-Starts a node server for the app. Open [http://localhost:5000/](http://localhost:5000/) to view in the browser.
+Starts a node server for the app. Open [http://localhost:5000](http://localhost:5000) to view in the browser.
 
 ### `npm start`
 
