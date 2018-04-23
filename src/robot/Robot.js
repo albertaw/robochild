@@ -18,7 +18,7 @@ export default class Robot extends React.Component {
 			[this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD]
 		];
 		this.state = {
-			currentState: this.names.RUSTY,
+			currentState: this.names.HUNGRY,
 			hungerLevel: 50,
 			rustLevel: 0,
 			foodLevel: 100,
