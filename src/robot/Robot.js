@@ -18,7 +18,7 @@ export default class Robot extends React.Component {
 			[this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD]
 		];
 		this.state = {
-			currentState: this.names.IDLE,
+			currentState: this.names.HUNGRY,
 			hungerLevel: 50,
 			rustLevel: 0,
 			foodLevel: 100,
@@ -27,19 +27,19 @@ export default class Robot extends React.Component {
 	}
 
 	feed() {
-		this.state.states[this.state.currentState].feed(this);
+		this.states[this.state.currentState].feed(this);
 	}
 
 	oil() {
-		this.state.states[this.state.currentState].oil(this);
+		this.states[this.state.currentState].oil(this);
 	}
 
 	sleep() {
-		this.state.states[this.state.currentState].sleep(this);
+		this.states[this.state.currentState].sleep(this);
 	}
 
 	reset() {
-		this.state.states[this.state.currentState].reset(this);
+		this.states[this.state.currentState].reset(this);
 	}
 
 	onHungry() {
@@ -57,8 +57,8 @@ export default class Robot extends React.Component {
 		 		<h4>Oil: {this.state.oilLevel}</h4>
 		 		<h4>Energy: {this.state.foodLevel}</h4>
 		 		<h4>Current State: {Object.keys(this.names)[this.state.currentState]}</h4>
-		 		<button onclick={()=>this.feed()}>Feed</button>
-		 		<button onclick={()=>this.oil()}>Oil</button>
+		 		<button onClick={()=>this.feed()}>Feed</button>
+		 		<button onClick={()=>this.oil()}>Oil</button>
 		 		<button onClick={()=>this.sleep()}>Sleep</button>
 		 	</div> 
 		)
