@@ -23,7 +23,8 @@ export default class Robot extends React.Component {
 			hungerLevel: 50,
 			rustLevel: 0,
 			foodLevel: 100,
-			oilLevel: 100
+			oilLevel: 100,
+			timeRemaining: 0
 		};
 
 	}
@@ -52,16 +53,41 @@ export default class Robot extends React.Component {
 		console.log('Rusty event listener addded');
 	}
 
+	onClockTicked() {
+
+	}
+
 	render() {
 		 return (
-		 	<div ref={elem => this.context = elem}>
-		 		<h2>Robo Child</h2>
-		 		<h4>Oil: {this.state.oilLevel}</h4>
-		 		<h4>Electricity: {this.state.foodLevel}</h4>
-		 		<h4>Current State: {Object.keys(this.names)[this.state.currentState]}</h4>
-		 		<button onClick={()=>this.feed()}>Feed</button>
-		 		<button onClick={()=>this.oil()}>Oil</button>
-		 		<button onClick={()=>this.sleep()}>Sleep</button>
+		 	<div ref={elem => this.context = elem} class="robot container">
+		 		<h2 class="text-center">Robo Child</h2>
+		 		<div class="row">
+			 		<p class="col-3">Oil</p>
+			 		<div class="col-9">
+				 		<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.oilLevel + '%'}}>{this.state.oilLevel + '%'}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+			 		<p class="col-3">Electricity</p>
+			 		<div class="col-9">
+				 		<div class="progress">
+						  <div class="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.foodLevel + '%'}}>{this.state.foodLevel + '%'}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+		 			<p>Current State: {Object.keys(this.names)[this.state.currentState]}</p>
+		 		</div>
+			 	<div class="row justify-content-center">
+			 		<div class="btn-group">
+			 			<button class="btn btn-success btn-lg" onClick={()=>this.feed()}>Feed</button>
+				 		<button class="btn btn-warning btn-lg" onClick={()=>this.oil()}>Oil</button>
+				 		<button class="btn btn-dark btn-lg" onClick={()=>this.sleep()}>Sleep</button>
+				 	</div>
+				</div>
+
 		 	</div> 
 		)
 	}
