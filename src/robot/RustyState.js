@@ -1,19 +1,31 @@
 import React from 'react';
 
 export default class RustyState extends React.Component {
-	feed() {
-
+	feed(robot) {
+		const currentState = robot.transitions[robot.state.currentState][robot.inputs.FEED];
+		robot.setState({
+			currentState: currentState
+		});
 	}
 
-	oil() {
-
+	oil(robot) {
+		const currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
+		robot.setState({
+			currentState: currentState
+		});
 	}
 
-	sleep() {
-
+	sleep(robot) {
+		const currentState = robot.transitions[robot.state.currentState][robot.inputs.SLEEP];
+		robot.setState({
+			currentState: currentState
+		});
 	}
 
-	reset() {
-		
+	reset(robot) {
+		const currentState = robot.transitions[robot.state.currentState][robot.inputs.RESET];
+		robot.setState({
+			currentState: currentState
+		});
 	}
 }
