@@ -26,10 +26,6 @@ export default class Robot extends React.Component {
 			oilLevel: 100
 		};
 
-		this.hungryEvent = new Event('onHungry');
-		this.rustyEvent = new Event('onRusty');
-		this.onHungry = this.onHungry.bind(this);
-		this.onRusty = this.onRusty.bind(this);
 	}
 
 	feed() {
@@ -49,7 +45,6 @@ export default class Robot extends React.Component {
 	}
 
 	onHungry() {
-
 		console.log('Hungry event listenter added.');
 	}
 
