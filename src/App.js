@@ -6,8 +6,8 @@ import Robot from './robot/Robot';
 class App extends Component {
   render() {
     return (
-    	<div class="row justify-content-center">
-      	<div class="col-sm-7">
+    	<div className="app row justify-content-center">
+      	<div className="col-sm-7">
         	<Robot />
         </div>
       </div>

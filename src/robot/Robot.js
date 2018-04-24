@@ -3,7 +3,7 @@ import IdleState from './IdleState';
 import HungryState from './HungryState';
 import RustyState from './RustyState';
 import DeadState from './DeadState';
-import RobotDisplay from './RobotDisplay';
+
 
 export default class Robot extends React.Component {
 	constructor(props) {
@@ -19,12 +19,14 @@ export default class Robot extends React.Component {
 			[this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD]
 		];
 
+		this.interval = null;
+
 		this.state = {
 			currentState: this.names.IDLE,
 			hungerLevel: 100,
 			rustLevel: 100,
 			foodLevel: 100,
-			oilLevel: 100,
+			oilLevel: 100
 		};
 	}
 
@@ -72,6 +74,10 @@ export default class Robot extends React.Component {
 
 		if (this.state.rustLevel < 50) {
 			this.onRusty();
+		}
+
+		if (this.state.currentState === this.names.DEAD) {
+			clearInterval(this.interval);
 		}
 	}
 

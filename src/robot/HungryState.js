@@ -28,10 +28,7 @@ export default class HungryState extends React.Component {
 	}
 
 	sleep(robot) {
-		const currentState = robot.transitions[robot.state.currentState][robot.inputs.SLEEP];
-		robot.setState({
-			currentState: currentState
-		});
+		
 	}
 
 	reset(robot) {

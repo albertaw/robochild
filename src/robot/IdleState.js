@@ -28,10 +28,11 @@ export default class IdleState extends React.Component {
 	}
 
 	sleep(robot) {
-		const currentState = robot.transitions[robot.state.currentState][robot.inputs.SLEEP];
-		robot.setState({
-			currentState: currentState
-		});
+		clearInterval(robot.interval)
+
+		setTimeout(()=>
+			robot.interval = setInterval(()=>
+			robot.update(), 1000 * 1), 1000 * 5)
 	}
 
 	reset(robot) {

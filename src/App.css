@@ -1,3 +1,45 @@
+.app {
+ position: relative;
+}
+.v-align {
+  position: absolute;
+  top: 50%;
+  height: auto;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .robot {
-  margin-top: 2em;
+  position: relative;
+  border: 2px solid black;
+}
+.robot-head {
+  position: absolute;
+  left: 50%;
+  right: 4em;
+  width: 8em;
+  height: 4em;
+  border: 2px solid black;
+  border-radius: 2px;
+}
+
+.robot-body {
+  position: absolute;
+  top: 4em;
+  left: 50%;
+  right: 4em;
+  width: 8em;
+  height: 8em;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.robot-leg {
+  height: 4em;
+  width: 2em;
+  position: absolute;
+  top: 10em;
+  left: 50% - 4em;
+  border: 2px solid black;
 }

@@ -19,4 +19,5 @@ export default class DeadState extends React.Component{
 			currentState: currentState
 		});
 	}
+
 }
