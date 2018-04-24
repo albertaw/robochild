@@ -3,6 +3,7 @@ import IdleState from './IdleState';
 import HungryState from './HungryState';
 import RustyState from './RustyState';
 import DeadState from './DeadState';
+import RobotDisplay from './RobotDisplay';
 
 export default class Robot extends React.Component {
 	constructor(props) {
@@ -20,11 +21,10 @@ export default class Robot extends React.Component {
 
 		this.state = {
 			currentState: this.names.HUNGRY,
-			hungerLevel: 50,
-			rustLevel: 0,
+			hungerLevel: 100,
+			rustLevel: 100,
 			foodLevel: 100,
 			oilLevel: 100,
-			timeRemaining: 0
 		};
 
 	}
@@ -46,21 +46,46 @@ export default class Robot extends React.Component {
 	}
 
 	onHungry() {
-		console.log('Hungry event listenter added.');
+		//change state
+		//alert("I'm hungry!");
 	}
 
 	onRusty() {
-		console.log('Rusty event listener addded');
+		//change state
+		//alert("I'm Rusty");
 	}
 
-	onClockTicked() {
+	update() {
+		//decrement hunger
+		this.setState({
+			hungerLevel: this.state.hungerLevel === 0 ? 0 : this.state.hungerLevel -= 1,
+			//decrement rust
+			rustLevel: this.state.rustLevel === 0 ? 0 : this.state.rustLevel -= 1
+		});
 
+		if (this.state.hungerLevel < 75) {
+			this.onHungry();
+		}
+
+		if (this.state.rustLevel < 50) {
+			this.onRusty();
+		}
+	}
+
+	componentDidMount() {
+		this.interval = setInterval(()=>
+			this.update(), 1000 * 2);
+	}
+
+	componentWillMount() {
+		clearInterval(this.interval);
 	}
 
 	render() {
 		 return (
-		 	<div ref={elem => this.context = elem} class="robot container">
+		 	<div ref={elem => this.context = elem} class="container">
 		 		<h2 class="text-center">Robo Child</h2>
+
 		 		<div class="row">
 			 		<p class="col-3">Oil</p>
 			 		<div class="col-9">
@@ -77,9 +102,13 @@ export default class Robot extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div class="row justify-content-center">
+				
+				<div>
+					<p>Hunger Level: {this.state.hungerLevel}</p>
+					<p>Rust Level: {this.state.rustLevel}</p>
 		 			<p>Current State: {Object.keys(this.names)[this.state.currentState]}</p>
 		 		</div>
+
 			 	<div class="row justify-content-center">
 			 		<div class="btn-group">
 			 			<button class="btn btn-success btn-lg" onClick={()=>this.feed()}>Feed</button>
@@ -91,4 +120,4 @@ export default class Robot extends React.Component {
 		 	</div> 
 		)
 	}
-} 
+}
