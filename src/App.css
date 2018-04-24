@@ -1,5 +1,8 @@
+.btn {
+  text-transform: uppercase;
+}
 .app {
- position: relative;
+  position: relative;
 }
 .v-align {
   position: absolute;

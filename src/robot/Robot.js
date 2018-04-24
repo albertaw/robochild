@@ -120,11 +120,15 @@ export default class Robot extends React.Component {
 		 			<p>Current State: {Object.keys(this.names)[this.state.currentState]}</p>
 		 		</div>
 
-			 	<div className="row justify-content-center">
-			 		<div className="btn-group">
-			 			<button className="btn btn-success btn-lg" onClick={()=>this.feed()}>Feed</button>
-				 		<button className="btn btn-warning btn-lg" onClick={()=>this.oil()}>Oil</button>
-				 		<button className="btn btn-dark btn-lg" onClick={()=>this.sleep()}>Sleep</button>
+			 	<div className="row">
+			 		<div className="col">
+			 			<button className="btn btn-success btn-block" onClick={()=>this.feed()}>Feed</button>
+			 		</div>
+			 		<div className="col">
+				 		<button className="btn btn-warning btn-block" onClick={()=>this.oil()}>Oil</button>
+				 	</div>
+				 	<div className="col">
+				 		<button className="btn btn-dark btn-block" onClick={()=>this.sleep()}>Sleep</button>
 				 	</div>
 				</div>
 
