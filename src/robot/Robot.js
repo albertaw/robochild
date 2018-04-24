@@ -10,7 +10,7 @@ export default class Robot extends React.Component {
 		super(props);
 		this.names = {'IDLE': 0, 'HUNGRY': 1, 'RUSTY': 2, 'DEAD': 3};
 		this.states = [new IdleState(), new HungryState(), new RustyState(), new DeadState()];
-		this.inputs = {'FEED': 0, 'OIL': 1, 'SLEEP': 2, 'RESET': 3};
+		this.inputs = {'FEED': 0, 'OIL': 1, 'SLEEP': 2, 'ON_HUNGRY': 3, 'ON_RUSTY': 4};
 		this.transitions = [
 		//feed              	oil              sleep            onHungry          onRusty            
 			[this.names.IDLE,	this.names.IDLE,	this.names.IDLE, 	this.names.HUNGRY,this.names.RUSTY],
@@ -20,7 +20,7 @@ export default class Robot extends React.Component {
 		];
 
 		this.state = {
-			currentState: this.names.HUNGRY,
+			currentState: this.names.IDLE,
 			hungerLevel: 100,
 			rustLevel: 100,
 			foodLevel: 100,
@@ -46,18 +46,22 @@ export default class Robot extends React.Component {
 	}
 
 	onHungry() {
-		//change state
-		//alert("I'm hungry!");
+		const currentState = this.transitions[this.state.currentState][this.inputs.ON_HUNGRY];
+		this.setState({
+			currentState: currentState
+		});
 	}
 
 	onRusty() {
-		//change state
-		//alert("I'm Rusty");
+		const currentState = this.transitions[this.state.currentState][this.inputs.ON_RUSTY];
+		this.setState({
+			currentState: currentState
+		});
 	}
 
 	update() {
-		//decrement hunger
 		this.setState({
+			//decrement hunger
 			hungerLevel: this.state.hungerLevel === 0 ? 0 : this.state.hungerLevel -= 1,
 			//decrement rust
 			rustLevel: this.state.rustLevel === 0 ? 0 : this.state.rustLevel -= 1
@@ -74,7 +78,7 @@ export default class Robot extends React.Component {
 
 	componentDidMount() {
 		this.interval = setInterval(()=>
-			this.update(), 1000 * 2);
+			this.update(), 1000 * 1);
 	}
 
 	componentWillMount() {
