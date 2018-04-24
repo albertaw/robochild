@@ -4,9 +4,9 @@ export default class HungryState extends React.Component {
 	feed(robot) {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.FEED];
 		//decrement food
-		const foodLevel = robot.state.foodLevel === 0 ? 0 : robot.state.foodLevel -= 1; 
+		const foodLevel = robot.state.foodLevel === 0 ? 0 : robot.state.foodLevel - 1; 
 		//increment hunger  
-		const hungerLevel = robot.state.hungerLevel === 100 ? 100 : robot.state.hungerLevel += 1;
+		const hungerLevel = robot.state.hungerLevel === 100 ? 100 : robot.state.hungerLevel + 1;
 		robot.setState({
 			currentState: currentState,
 			foodLevel: foodLevel,
@@ -17,9 +17,9 @@ export default class HungryState extends React.Component {
 	oil(robot) {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
 		//decrement oil
-		const oilLevel = robot.state.oilLevel === 0 ? 0 : robot.state.oilLevel -= 1;
+		const oilLevel = robot.state.oilLevel === 0 ? 0 : robot.state.oilLevel - 1;
 		//increment rust
-		const rustLevel = robot.state.rustLevel === 100 ? 100 : robot.state.rustLevel += 1;
+		const rustLevel = robot.state.rustLevel === 100 ? 100 : robot.state.rustLevel + 1;
 		robot.setState({
 			currentState: currentState,
 			oilLevel: oilLevel,

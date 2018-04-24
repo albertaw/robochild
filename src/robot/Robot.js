@@ -61,11 +61,13 @@ export default class Robot extends React.Component {
 	}
 
 	update() {
+		const hungerLevel = this.state.hungerLevel === 0 ? 0 : this.state.hungerLevel - 1;
+		const rustLevel = this.state.rustLevel === 0 ? 0 : this.state.rustLevel - 1;
 		this.setState({
 			//decrement hunger
-			hungerLevel: this.state.hungerLevel === 0 ? 0 : this.state.hungerLevel -= 1,
+			hungerLevel: hungerLevel,
 			//decrement rust
-			rustLevel: this.state.rustLevel === 0 ? 0 : this.state.rustLevel -= 1
+			rustLevel: rustLevel
 		});
 
 		if (this.state.hungerLevel < 75) {
@@ -92,22 +94,22 @@ export default class Robot extends React.Component {
 
 	render() {
 		 return (
-		 	<div ref={elem => this.context = elem} class="container">
-		 		<h2 class="text-center">Robo Child</h2>
+		 	<div ref={elem => this.context = elem} className="container">
+		 		<h2 className="text-center">Robo Child</h2>
 
-		 		<div class="row">
-			 		<p class="col-3">Oil</p>
-			 		<div class="col-9">
-				 		<div class="progress">
-						  <div class="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.oilLevel + '%'}}>{this.state.oilLevel + '%'}</div>
+		 		<div className="row">
+			 		<p className="col-3">Oil</p>
+			 		<div className="col-9">
+				 		<div className="progress">
+						  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.oilLevel + '%'}}>{this.state.oilLevel + '%'}</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-			 		<p class="col-3">Electricity</p>
-			 		<div class="col-9">
-				 		<div class="progress">
-						  <div class="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.foodLevel + '%'}}>{this.state.foodLevel + '%'}</div>
+				<div className="row">
+			 		<p className="col-3">Electricity</p>
+			 		<div className="col-9">
+				 		<div className="progress">
+						  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.foodLevel + '%'}}>{this.state.foodLevel + '%'}</div>
 						</div>
 					</div>
 				</div>
@@ -118,11 +120,11 @@ export default class Robot extends React.Component {
 		 			<p>Current State: {Object.keys(this.names)[this.state.currentState]}</p>
 		 		</div>
 
-			 	<div class="row justify-content-center">
-			 		<div class="btn-group">
-			 			<button class="btn btn-success btn-lg" onClick={()=>this.feed()}>Feed</button>
-				 		<button class="btn btn-warning btn-lg" onClick={()=>this.oil()}>Oil</button>
-				 		<button class="btn btn-dark btn-lg" onClick={()=>this.sleep()}>Sleep</button>
+			 	<div className="row justify-content-center">
+			 		<div className="btn-group">
+			 			<button className="btn btn-success btn-lg" onClick={()=>this.feed()}>Feed</button>
+				 		<button className="btn btn-warning btn-lg" onClick={()=>this.oil()}>Oil</button>
+				 		<button className="btn btn-dark btn-lg" onClick={()=>this.sleep()}>Sleep</button>
 				 	</div>
 				</div>
 
