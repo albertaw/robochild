@@ -4,6 +4,14 @@ body {
 .btn {
   text-transform: uppercase;
 }
+
+.btn-reset {
+  position: fixed;
+  bottom: 4em;
+  background-color: rgba(240,19,11);
+  border-color: rgba(240,19,11);
+}
+
 .app {
   margin-top: 2em;
 }
@@ -13,7 +21,7 @@ body {
 }
 
 .v-align {
-  position:  fixed;
+  position: fixed;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
