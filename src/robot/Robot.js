@@ -26,7 +26,6 @@ export default class Robot extends React.Component {
 			foodLevel: 100,
 			oilLevel: 100,
 		};
-
 	}
 
 	feed() {
