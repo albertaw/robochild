@@ -85,7 +85,7 @@ export default class Robot extends React.Component {
 
 	componentDidMount() {
 		this.interval = setInterval(()=>
-			this.update(), 1000 * 1);
+			this.update(), 1000 * 2);
 	}
 
 	componentWillMount() {
@@ -95,8 +95,6 @@ export default class Robot extends React.Component {
 	render() {
 		 return (
 		 	<div ref={elem => this.context = elem} className="container">
-		 		<h2 className="text-center">Robo Child</h2>
-
 		 		<div className="row">
 			 		<p className="col-3">Oil</p>
 			 		<div className="col-9">
@@ -114,23 +112,33 @@ export default class Robot extends React.Component {
 					</div>
 				</div>
 				
-				<div>
-					<p>Hunger Level: {this.state.hungerLevel}</p>
-					<p>Rust Level: {this.state.rustLevel}</p>
-		 			<p>Current State: {Object.keys(this.names)[this.state.currentState]}</p>
+				<div className="row">
+					<p className="col">Hunger Level: {this.state.hungerLevel}</p>
+					<p className="col">Rust Level: {this.state.rustLevel}</p>
+		 			<p className="col">State: {Object.keys(this.names)[this.state.currentState]}</p>
 		 		</div>
 
-			 	<div className="row">
-			 		<div className="col">
+		 		<div className="row justify-content-center">
+		 			<div className="v-align">
+		 				<div className={(this.state.currentState === this.names.DEAD) ? "robot-body robot-dead" : "robot-body"} 
+		 				style={{width: this.state.hungerLevel * 2 + 'px', height: this.state.hungerLevel * 2 + 'px'}}></div>
+		 			</div>
+		 		</div>
+		 		
+		 		<nav class="navbar fixed-bottom navbar-dark bg-dark">
+				  <div class="container">
+				    <div className="col">
 			 			<button className="btn btn-success btn-block" onClick={()=>this.feed()}>Feed</button>
 			 		</div>
 			 		<div className="col">
 				 		<button className="btn btn-warning btn-block" onClick={()=>this.oil()}>Oil</button>
 				 	</div>
 				 	<div className="col">
-				 		<button className="btn btn-dark btn-block" onClick={()=>this.sleep()}>Sleep</button>
+				 		<button className="btn btn-primary btn-block" onClick={()=>this.sleep()}>Sleep</button>
 				 	</div>
-				</div>
+				  </div>
+				</nav>
+			 
 
 		 	</div> 
 		)

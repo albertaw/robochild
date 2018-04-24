@@ -32,7 +32,7 @@ export default class IdleState extends React.Component {
 
 		setTimeout(()=>
 			robot.interval = setInterval(()=>
-			robot.update(), 1000 * 1), 1000 * 5)
+			robot.update(), 1000 * 2), 1000 * 10)
 	}
 
 	reset(robot) {

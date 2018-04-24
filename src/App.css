@@ -1,13 +1,20 @@
+body {
+  background: #ffc107;
+}
 .btn {
   text-transform: uppercase;
 }
 .app {
-  position: relative;
+  margin-top: 2em;
 }
+
+.app-title {
+  margin-bottom: 1em;
+}
+
 .v-align {
-  position: absolute;
+  position:  fixed;
   top: 50%;
-  height: auto;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -15,34 +22,45 @@
 
 .robot {
   position: relative;
-  border: 2px solid black;
-}
-.robot-head {
-  position: absolute;
-  left: 50%;
-  right: 4em;
-  width: 8em;
-  height: 4em;
-  border: 2px solid black;
-  border-radius: 2px;
 }
 
 .robot-body {
-  position: absolute;
-  top: 4em;
-  left: 50%;
-  right: 4em;
-  width: 8em;
-  height: 8em;
-  border: 2px solid black;
-  border-radius: 100%;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  background: rgba(240,19,11);
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(240,19,11,.4);
+  animation: pulse 2s infinite;
 }
 
-.robot-leg {
-  height: 4em;
-  width: 2em;
-  position: absolute;
-  top: 10em;
-  left: 50% - 4em;
-  border: 2px solid black;
+.robot-dead {
+  animation: none;
+}
+/* https://codepen.io/olam/pen/zcqea?editors=1100 */
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(240,19,11,.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 40px rgba(240,19,11,0);
+  }
+  100% {
+      -webkit-box-shadow:0 0 0 0 rgba(240,19,11,0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(240,19,11,.4);
+    box-shadow: 0 0 0 0 rgba(240,19,11,.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 40px rgba(240,19,11,0);
+      box-shadow: 0 0 0 40px rgba(240,19,11,0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(240,19,11,0);
+      box-shadow: 0 0 0 0 rgba(240,19,11,0);
+  }
 }
