@@ -18,8 +18,8 @@ export default class Robot extends React.Component {
 			[this.names.RUSTY,this.names.IDLE,	this.names.RUSTY,	this.names.DEAD,	this.names.RUSTY,	this.names.IDLE],
 			[this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.IDLE]
 		];
-
-		this.interval = null;
+		this.energyInterval = null;
+		this.conditionInterval = null;
 
 		this.state = {
 			currentState: this.names.IDLE,
@@ -60,36 +60,51 @@ export default class Robot extends React.Component {
 		});
 	}
 
-	update() {
+	updateEnergy() {
 		const energy = this.state.energy === 0 ? 0 : this.state.energy - 1;
-		const condition = this.state.condition === 0 ? 0 : this.state.condition - 1;
+		
 		this.setState({
-			//decrement hunger
 			energy: energy,
-			//decrement rust
-			condition: condition
 		});
 
-		if (this.state.energy < 75) {
+		if (this.state.energy < 50) {
 			this.onHungry();
 		}
+
+		if (this.state.currentState === this.names.DEAD) {
+			clearInterval(this.energyInterval);
+			clearInterval(this.conditionInterval);
+		}
+	}
+
+	updateCondition() {
+		const condition = this.state.condition === 0 ? 0 : this.state.condition - 1;
+
+		this.setState({
+			condition: condition
+		});
 
 		if (this.state.condition < 50) {
 			this.onRusty();
 		}
 
 		if (this.state.currentState === this.names.DEAD) {
-			clearInterval(this.interval);
+			clearInterval(this.energyInterval);
+			clearInterval(this.conditionInterval);
 		}
 	}
 
 	componentDidMount() {
-		this.interval = setInterval(()=>
-			this.update(), 1000 * 2);
+		this.energyInterval = setInterval(()=>
+			this.updateEnergy(), 1000 * 1);
+
+		this.conditionInterval = setInterval(()=>
+			this.updateCondition(), 1000 * 2);
 	}
 
 	componentWillMount() {
-		clearInterval(this.interval);
+		clearInterval(this.energyInterval);
+		clearInterval(this.conditionInterval);
 	}
 
 	render() {
@@ -97,10 +112,10 @@ export default class Robot extends React.Component {
 		 	<div className="container">
 		 		<section>
 			 		<div className="row">
-				 		<p className="col-3">Energy Level</p>
+				 		<p className="col-3">Energy</p>
 				 		<div className="col-9">
 					 		<div className="progress">
-							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.energy + '%'}}>{this.state.energy + '%'}</div>
+							  <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style={{width: this.state.energy + '%'}}>{this.state.energy + '%'}</div>
 							</div>
 						</div>
 					</div>
@@ -140,10 +155,10 @@ export default class Robot extends React.Component {
 			 			<button className="btn btn-success btn-block" onClick={()=>this.charge()}>charge</button>
 			 		</div>
 			 		<div className="col">
-				 		<button className="btn btn-warning btn-block" onClick={()=>this.oil()}>Oil</button>
+				 		<button className="btn btn-primary btn-block" onClick={()=>this.oil()}>Oil</button>
 				 	</div>
 				 	<div className="col">
-				 		<button className="btn btn-primary btn-block" onClick={()=>this.sleep()}>Sleep</button>
+				 		<button className="btn btn-warning btn-block" onClick={()=>this.sleep()}>Sleep</button>
 				 	</div>
 				</nav>
 			</div>

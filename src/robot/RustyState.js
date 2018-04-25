@@ -41,7 +41,8 @@ export default class RustyState extends React.Component {
 			oil: 100
 		});
 		
-		robot.interval = setInterval(()=>
-			robot.update(), 1000 * 2);
+		robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
+
+		robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
 	}
 }

@@ -28,11 +28,14 @@ export default class IdleState extends React.Component {
 	}
 
 	sleep(robot) {
-		clearInterval(robot.interval)
+		clearInterval(robot.energyInterval);
+		clearInterval(robot.conditionInterval);
 
-		setTimeout(()=>
-			robot.interval = setInterval(()=>
-			robot.update(), 1000 * 2), 1000 * 10)
+		setTimeout(()=> {
+			robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
+
+			robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
+		}, 1000 * 60)
 	}
 
 	reset(robot) {
@@ -45,7 +48,8 @@ export default class IdleState extends React.Component {
 			oil: 100
 		});
 		
-		robot.interval = setInterval(()=>
-			robot.update(), 1000 * 2);
+		robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
+
+		robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
 	}
 }
