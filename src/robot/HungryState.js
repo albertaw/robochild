@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class HungryState extends React.Component {
 	charge(robot) {
-		const currentState = robot.transitions[robot.state.currentState][robot.inputs.CHARGE];
 		//decrement electricity
 		const electricity = (robot.state.electricity === 0) ? 0 : robot.state.electricity - 1; 
 		//increment energy  
@@ -15,6 +14,13 @@ export default class HungryState extends React.Component {
 			energy = robot.state.energy + 1;
 		}
 
+		let currentState;
+		if (robot.state.energy < 50) {
+			currentState = robot.state.currentState;
+		} else {
+			currentState = robot.transitions[robot.state.currentState][robot.inputs.CHARGE];
+		}
+
 		robot.setState({
 			currentState: currentState,
 			electricity: electricity,
@@ -23,7 +29,6 @@ export default class HungryState extends React.Component {
 	}
 
 	oil(robot) {
-		const currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
 		//decrement oil
 		const oil = (robot.state.oil === 0) ? 0 : robot.state.oil - 1;
 		//increment condition
@@ -34,6 +39,13 @@ export default class HungryState extends React.Component {
 			condition = 100; 
 		} else {
 			condition = robot.state.condition + 1;
+		}
+		
+		let currentState;
+		if (robot.state.condition < 50) {
+			currentState = robot.state.currentState;
+		} else {
+			currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
 		}
 		
 		robot.setState({
