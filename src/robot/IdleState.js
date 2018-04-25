@@ -4,9 +4,17 @@ export default class IdleState extends React.Component {
 	charge(robot) {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.CHARGE];
 		//decrement electricity
-		const electricity = robot.state.electricity === 0 ? 0 : robot.state.electricity - 1; 
+		const electricity = (robot.state.electricity === 0) ? 0 : robot.state.electricity - 1; 
 		//increment energy  
-		const energy = robot.state.energy === 100 ? 100 : robot.state.energy + 1;
+		let energy;
+		if (robot.state.electricity === 0) {
+			energy = robot.state.energy;  
+		} else if (robot.state.energy === 100) {
+			energy = 100;
+		} else {
+			energy = robot.state.energy + 1;
+		}
+
 		robot.setState({
 			currentState: currentState,
 			electricity: electricity,
@@ -17,9 +25,17 @@ export default class IdleState extends React.Component {
 	oil(robot) {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
 		//decrement oil
-		const oil = robot.state.oil === 0 ? 0 : robot.state.oil - 1;
+		const oil = (robot.state.oil === 0) ? 0 : robot.state.oil - 1;
 		//increment condition
-		const condition = robot.state.condition === 100 ? 100 : robot.state.condition + 1;
+		let condition; 
+		if (robot.state.oil === 0) {
+			condition = robot.state.condition;
+		} else if (robot.state.condition === 100) {
+			condition = 100; 
+		} else {
+			condition = robot.state.condition + 1;
+		}
+		
 		robot.setState({
 			currentState: currentState,
 			oil: oil,

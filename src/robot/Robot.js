@@ -61,7 +61,7 @@ export default class Robot extends React.Component {
 	}
 
 	updateEnergy() {
-		const energy = this.state.energy === 0 ? 0 : this.state.energy - 1;
+		const energy = (this.state.energy) === 0 ? 0 : this.state.energy - 1;
 		
 		this.setState({
 			energy: energy,
@@ -78,7 +78,7 @@ export default class Robot extends React.Component {
 	}
 
 	updateCondition() {
-		const condition = this.state.condition === 0 ? 0 : this.state.condition - 1;
+		const condition = (this.state.condition) === 0 ? 0 : this.state.condition - 1;
 
 		this.setState({
 			condition: condition
@@ -150,7 +150,7 @@ export default class Robot extends React.Component {
 		 			<button className="btn btn-danger btn-lg btn-reset" onClick={()=>this.reset()}>New Bot</button>
 			 	</div>
 		 		: null}
-		 		<nav class="navbar fixed-bottom navbar-dark bg-dark">
+		 		<nav className="navbar fixed-bottom navbar-dark bg-dark">
 				  <div className="col">
 			 			<button className="btn btn-success btn-block" onClick={()=>this.charge()}>charge</button>
 			 		</div>
