@@ -22,6 +22,10 @@ The state pattern is used to design the classes for the robot. This is the class
 An API will be created from the robot's properties. This will allow the app to be easily ported to other platforms including the web and mobile. It will also allow programs access the data so they can use the robot's computational power.
 
 
+## API
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:

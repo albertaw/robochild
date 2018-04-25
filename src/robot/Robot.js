@@ -10,9 +10,9 @@ export default class Robot extends React.Component {
 		super(props);
 		this.names = {'IDLE': 0, 'HUNGRY': 1, 'RUSTY': 2, 'DEAD': 3};
 		this.states = [new IdleState(), new HungryState(), new RustyState(), new DeadState()];
-		this.inputs = {'FEED': 0, 'OIL': 1, 'SLEEP': 2, 'ON_HUNGRY': 3, 'ON_RUSTY': 4, 'RESET': 5};
+		this.inputs = {'CHARGE': 0, 'OIL': 1, 'SLEEP': 2, 'ON_HUNGRY': 3, 'ON_RUSTY': 4, 'RESET': 5};
 		this.transitions = [
-		//feed              	oil              sleep            onHungry          onRusty           reset
+		//charge              	oil              sleep            onHungry          onRusty           reset
 			[this.names.IDLE,	this.names.IDLE,	this.names.IDLE, 	this.names.HUNGRY,this.names.RUSTY,	this.names.IDLE],
 			[this.names.IDLE, this.names.HUNGRY,this.names.HUNGRY,this.names.HUNGRY,this.names.DEAD,	this.names.IDLE], 
 			[this.names.RUSTY,this.names.IDLE,	this.names.RUSTY,	this.names.DEAD,	this.names.RUSTY,	this.names.IDLE],
@@ -23,15 +23,15 @@ export default class Robot extends React.Component {
 
 		this.state = {
 			currentState: this.names.IDLE,
-			hungerLevel: 100,
-			rustLevel: 100,
-			foodLevel: 100,
-			oilLevel: 100
+			energy: 100,
+			condition: 100,
+			electricity: 100,
+			oil: 100
 		};
 	}
 
-	feed() {
-		this.states[this.state.currentState].feed(this);
+	charge() {
+		this.states[this.state.currentState].charge(this);
 	}
 
 	oil() {
@@ -61,20 +61,20 @@ export default class Robot extends React.Component {
 	}
 
 	update() {
-		const hungerLevel = this.state.hungerLevel === 0 ? 0 : this.state.hungerLevel - 1;
-		const rustLevel = this.state.rustLevel === 0 ? 0 : this.state.rustLevel - 1;
+		const energy = this.state.energy === 0 ? 0 : this.state.energy - 1;
+		const condition = this.state.condition === 0 ? 0 : this.state.condition - 1;
 		this.setState({
 			//decrement hunger
-			hungerLevel: hungerLevel,
+			energy: energy,
 			//decrement rust
-			rustLevel: rustLevel
+			condition: condition
 		});
 
-		if (this.state.hungerLevel < 75) {
+		if (this.state.energy < 75) {
 			this.onHungry();
 		}
 
-		if (this.state.rustLevel < 50) {
+		if (this.state.condition < 50) {
 			this.onRusty();
 		}
 
@@ -97,26 +97,26 @@ export default class Robot extends React.Component {
 		 	<div className="container">
 		 		<section>
 			 		<div className="row">
-				 		<p className="col-3">Oil</p>
+				 		<p className="col-3">Energy Level</p>
 				 		<div className="col-9">
 					 		<div className="progress">
-							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.oilLevel + '%'}}>{this.state.oilLevel + '%'}</div>
+							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.energy + '%'}}>{this.state.energy + '%'}</div>
 							</div>
 						</div>
 					</div>
 					<div className="row">
-				 		<p className="col-3">Electricity</p>
+				 		<p className="col-3">Condition</p>
 				 		<div className="col-9">
 					 		<div className="progress">
-							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.foodLevel + '%'}}>{this.state.foodLevel + '%'}</div>
+							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.condition + '%'}}>{this.state.condition + '%'}</div>
 							</div>
 						</div>
 					</div>
 				</section>
 
 				<div className="row">
-					<p className="col">Hunger Level: {this.state.hungerLevel}</p>
-					<p className="col">Rust Level: {this.state.rustLevel}</p>
+					<p className="col">Electricity: {this.state.electricity}</p>
+					<p className="col">Oil: {this.state.oil}</p>
 		 			<p className="col">State: {Object.keys(this.names)[this.state.currentState]}</p>
 		 		</div>
 
@@ -125,7 +125,7 @@ export default class Robot extends React.Component {
 			 		<div className="row justify-content-center">
 			 			<div className="v-align">
 			 				<div className={(this.state.currentState === this.names.DEAD) ? "robot-body robot-dead" : "robot-body"} 
-			 				style={{width: this.state.hungerLevel * 2 + 'px', height: this.state.hungerLevel * 2 + 'px'}}>
+			 				style={{width: this.state.energy * 2 + 'px', height: this.state.energy * 2 + 'px'}}>
 			 				</div>
 			 			</div>
 			 		</div>
@@ -137,7 +137,7 @@ export default class Robot extends React.Component {
 		 		: null}
 		 		<nav class="navbar fixed-bottom navbar-dark bg-dark">
 				  <div className="col">
-			 			<button className="btn btn-success btn-block" onClick={()=>this.feed()}>Feed</button>
+			 			<button className="btn btn-success btn-block" onClick={()=>this.charge()}>charge</button>
 			 		</div>
 			 		<div className="col">
 				 		<button className="btn btn-warning btn-block" onClick={()=>this.oil()}>Oil</button>

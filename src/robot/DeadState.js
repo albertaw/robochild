@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class DeadState extends React.Component{
-	feed(robot) {
+	charge(robot) {
 		
 	}
 
@@ -17,10 +17,10 @@ export default class DeadState extends React.Component{
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.RESET];
 		robot.setState({
 			currentState: currentState,
-			hungerLevel: 100,
-			rustLevel: 100,
-			foodLevel: 100,
-			oilLevel: 100
+			energy: 100,
+			condition: 100,
+			electricity: 100,
+			oil: 100
 		});
 		
 		robot.interval = setInterval(()=>

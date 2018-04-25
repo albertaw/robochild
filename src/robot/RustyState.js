@@ -1,29 +1,29 @@
 import React from 'react';
 
 export default class RustyState extends React.Component {
-	feed(robot) {
-		const currentState = robot.transitions[robot.state.currentState][robot.inputs.FEED];
-		//decrement food
-		const foodLevel = robot.state.foodLevel === 0 ? 0 : robot.state.foodLevel - 1; 
-		//increment hunger  
-		const hungerLevel = robot.state.hungerLevel === 100 ? 100 : robot.state.hungerLevel + 1;
+	charge(robot) {
+		const currentState = robot.transitions[robot.state.currentState][robot.inputs.CHARGE];
+		//decrement electricity
+		const electricity = robot.state.electricity === 0 ? 0 : robot.state.electricity - 1; 
+		//increment energy  
+		const energy = robot.state.energy === 100 ? 100 : robot.state.energy + 1;
 		robot.setState({
 			currentState: currentState,
-			foodLevel: foodLevel,
-			hungerLevel: hungerLevel
+			electricity: electricity,
+			energy: energy
 		});
 	}
 
 	oil(robot) {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.OIL];
 		//decrement oil
-		const oilLevel = robot.state.oilLevel === 0 ? 0 : robot.state.oilLevel - 1;
-		//increment rust
-		const rustLevel = robot.state.rustLevel === 100 ? 100 : robot.state.rustLevel + 1;
+		const oil = robot.state.oil === 0 ? 0 : robot.state.oil - 1;
+		//increment condition
+		const condition = robot.state.condition === 100 ? 100 : robot.state.condition + 1;
 		robot.setState({
 			currentState: currentState,
-			oilLevel: oilLevel,
-			rustLevel: rustLevel
+			oil: oil,
+			condition: condition
 		});
 	}
 
@@ -35,12 +35,12 @@ export default class RustyState extends React.Component {
 		const currentState = robot.transitions[robot.state.currentState][robot.inputs.RESET];
 		robot.setState({
 			currentState: currentState,
-			hungerLevel: 100,
-			rustLevel: 100,
-			foodLevel: 100,
-			oilLevel: 100
+			energy: 100,
+			condition: 100,
+			electricity: 100,
+			oil: 100
 		});
-
+		
 		robot.interval = setInterval(()=>
 			robot.update(), 1000 * 2);
 	}
