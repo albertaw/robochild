@@ -39,12 +39,14 @@ body {
   background: rgba(240,19,11);
   cursor: pointer;
   box-shadow: 0 0 0 rgba(240,19,11,.4);
-  animation: pulse 2s infinite;
+  animation: pulse 1.75s infinite;
+  animation-delay: 1.75s;
 }
 
 .robot-dead {
   animation: none;
 }
+
 /* https://codepen.io/olam/pen/zcqea?editors=1100 */
 @-webkit-keyframes pulse {
   0% {

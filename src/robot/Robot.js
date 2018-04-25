@@ -3,7 +3,8 @@ import IdleState from './IdleState';
 import HungryState from './HungryState';
 import RustyState from './RustyState';
 import DeadState from './DeadState';
-
+import ekgSrc from './ekg.mp3'; 
+import flatlineSrc from './flatline.mp3';
 
 export default class Robot extends React.Component {
 	constructor(props) {
@@ -20,7 +21,8 @@ export default class Robot extends React.Component {
 		];
 		this.energyInterval = null;
 		this.conditionInterval = null;
-
+		this.ekg = null;
+		this.flatline = null;
 		this.state = {
 			currentState: this.names.IDLE,
 			energy: 100,
@@ -62,19 +64,25 @@ export default class Robot extends React.Component {
 
 	updateEnergy() {
 		const energy = (this.state.energy) === 0 ? 0 : this.state.energy - 1;
-		
+		this.ekg.play();
+
 		this.setState({
 			energy: energy,
 		});
-
+		
 		if (this.state.energy < 50) {
 			this.onHungry();
+
 		}
 
 		if (this.state.currentState === this.names.DEAD) {
 			clearInterval(this.energyInterval);
 			clearInterval(this.conditionInterval);
+			this.ekg.pause();
+			this.flatline.volume = .1;
+			this.flatline.play();
 		}
+
 	}
 
 	updateCondition() {
@@ -91,12 +99,18 @@ export default class Robot extends React.Component {
 		if (this.state.currentState === this.names.DEAD) {
 			clearInterval(this.energyInterval);
 			clearInterval(this.conditionInterval);
+			this.ekg.pause();
+			this.flatline.play()
 		}
 	}
 
 	componentDidMount() {
-		this.energyInterval = setInterval(()=>
-			this.updateEnergy(), 1000 * 1);
+		this.energyInterval = setInterval(()=>{
+			this.ekg = document.getElementById('ekg');
+			this.flatline = document.getElementById('flatline');
+			this.updateEnergy()}
+			, 1000 * 1);
+		
 
 		this.conditionInterval = setInterval(()=>
 			this.updateCondition(), 1000 * 2);
@@ -110,6 +124,12 @@ export default class Robot extends React.Component {
 	render() {
 		 return (
 		 	<div className="container">
+		 		<audio id="ekg" loop>
+		 			<source src={ekgSrc} type="audio/mpeg"/>
+		 		</audio>
+		 		<audio id="flatline">
+		 			<source src={flatlineSrc} type="audio/mpeg"/>
+		 		</audio>
 		 		<section>
 			 		<div className="row">
 				 		<p className="col-3">Energy</p>
@@ -139,8 +159,8 @@ export default class Robot extends React.Component {
 		 		<section>
 			 		<div className="row justify-content-center">
 			 			<div className="v-align">
-			 				<div className={(this.state.currentState === this.names.DEAD) ? "robot-body robot-dead" : "robot-body"} 
-			 				style={{width: this.state.energy * 2 + 'px', height: this.state.energy * 2 + 'px'}}>
+			 				<div className={(this.state.currentState === this.names.DEAD) ? "robot-body robot-dead" : "robot-body"}> 
+			 				
 			 				</div>
 			 			</div>
 			 		</div>
