@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Health() {
+export default function Resources() {
 	return (
 		<section>
 	 		<div className="row">

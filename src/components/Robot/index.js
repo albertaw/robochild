@@ -1,10 +1,15 @@
 import React from 'react';
-import IdleState from './IdleState';
-import HungryState from './HungryState';
-import RustyState from './RustyState';
-import DeadState from './DeadState';
+import IdleState from './State/IdleState';
+import HungryState from './State/HungryState';
+import RustyState from './State/RustyState';
+import DeadState from './State/DeadState';
 import ekgSrc from './ekg.mp3'; 
 import flatlineSrc from './flatline.mp3';
+import Audio from './Audio';
+import Health from './Health';
+import Messages from './Messages';
+import Bot from './Bot';
+import Controls from './Controls';
 
 export default class Robot extends React.Component {
 	constructor(props) {
@@ -106,8 +111,9 @@ export default class Robot extends React.Component {
 
 	componentDidMount() {
 		this.energyInterval = setInterval(()=>{
-			this.ekg = document.getElementById('ekg');
-			this.flatline = document.getElementById('flatline');
+			//this.ekg = document.getElementById('ekg');
+			this.ekg.volume = .2;
+			//this.flatline = document.getElementById('flatline');
 			this.updateEnergy()}
 			, 1000 * 1);
 		
@@ -124,63 +130,25 @@ export default class Robot extends React.Component {
 	render() {
 		 return (
 		 	<div className="container">
-		 		<audio id="ekg" loop>
-		 			<source src={ekgSrc} type="audio/mpeg"/>
-		 		</audio>
-		 		<audio id="flatline">
-		 			<source src={flatlineSrc} type="audio/mpeg"/>
-		 		</audio>
-		 		<section>
-			 		<div className="row">
-				 		<p className="col-3">Energy</p>
-				 		<div className="col-9">
-					 		<div className="progress">
-							  <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style={{width: this.state.energy + '%'}}>{this.state.energy + '%'}</div>
-							</div>
-						</div>
-					</div>
-					<div className="row">
-				 		<p className="col-3">Condition</p>
-				 		<div className="col-9">
-					 		<div className="progress">
-							  <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: this.state.condition + '%'}}>{this.state.condition + '%'}</div>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<div className="row">
-					<p className="col">Electricity: {this.state.electricity}</p>
-					<p className="col">Oil: {this.state.oil}</p>
-		 			<p className="col">State: {Object.keys(this.names)[this.state.currentState]}</p>
-		 		</div>
-
-			 
-		 		<section>
-			 		<div className="row justify-content-center">
-			 			<div className="v-align">
-			 				<div className={(this.state.currentState === this.names.DEAD) ? "robot-body robot-dead" : "robot-body"}> 
-			 				
-			 				</div>
-			 			</div>
-			 		</div>
-		 		</section>
-		 		{this.state.currentState === this.names.DEAD ?
-		 		<div className="row justify-content-center">
-		 			<button className="btn btn-danger btn-lg btn-reset" onClick={()=>this.reset()}>New Bot</button>
-			 	</div>
-		 		: null}
-		 		<nav className="navbar fixed-bottom navbar-dark bg-dark">
-				  <div className="col">
-			 			<button className="btn btn-success btn-block" onClick={()=>this.charge()}>charge</button>
-			 		</div>
-			 		<div className="col">
-				 		<button className="btn btn-primary btn-block" onClick={()=>this.oil()}>Oil</button>
-				 	</div>
-				 	<div className="col">
-				 		<button className="btn btn-warning btn-block" onClick={()=>this.sleep()}>Sleep</button>
-				 	</div>
-				</nav>
+		 		<Audio 
+		 			ekg={ekg=>{this.ekg=ekg}}
+		 			flatline={flatline=>{this.flatline=flatline}} />
+		 		<Health 
+		 			energy={this.state.energy}
+		 			condition={this.state.condition} />
+		 		<Messages
+		 			electricity={this.state.electricity}
+		 			oil={this.state.oil}
+		 			currentState={this.state.currentState}
+		 			names={this.names} />
+		 		<Bot
+		 			currentState={this.state.currentState}
+		 			deadState={this.names.DEAD} />
+		 		<Controls
+		 			reset={()=>this.reset()}
+		 			charge={()=>this.charge()}
+		 			oil={()=>this.oil()}
+		 			sleep={()=>this.sleep()} />
 			</div>
 		)
 	}

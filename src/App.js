@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Robot from './robot/Robot';
+import Robot from './components/Robot';
 
 class App extends Component {
   render() {

@@ -63,7 +63,7 @@ export default class IdleState extends React.Component {
 			robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
 
 			robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
-		}, 1000 * 60)
+		}, 10000 * 60)
 	}
 
 	reset(robot) {
