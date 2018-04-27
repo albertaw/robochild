@@ -3,8 +3,6 @@ import IdleState from './State/IdleState';
 import HungryState from './State/HungryState';
 import RustyState from './State/RustyState';
 import DeadState from './State/DeadState';
-import ekgSrc from './ekg.mp3'; 
-import flatlineSrc from './flatline.mp3';
 import Audio from './Audio';
 import Health from './Health';
 import Messages from './Messages';
@@ -109,22 +107,28 @@ export default class Robot extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	update() {
 		this.energyInterval = setInterval(()=>{
-			//this.ekg = document.getElementById('ekg');
-			this.ekg.volume = .2;
-			//this.flatline = document.getElementById('flatline');
 			this.updateEnergy()}
-			, 1000 * 1);
+			, 1000 * 2);
 		
 
 		this.conditionInterval = setInterval(()=>
-			this.updateCondition(), 1000 * 2);
+			this.updateCondition(), 1000 * 3);
+	}
+
+	cleanup() {
+		clearInterval(this.energyInterval);
+		clearInterval(this.conditionInterval);
+	}
+
+
+	componentDidMount() {
+		this.update();
 	}
 
 	componentWillMount() {
-		clearInterval(this.energyInterval);
-		clearInterval(this.conditionInterval);
+		this.cleanup();
 	}
 
 	render() {
