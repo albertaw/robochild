@@ -54,17 +54,8 @@ export default class RobotState {
 	}
 
 	sleep(robot) {
-		//cleanup
-		clearInterval(robot.energyInterval);
-		clearInterval(robot.conditionInterval);
-		//start clock
-		setTimeout(()=> {
-			robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
-
-			robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
-		}, 10000 * 60)
-
-		//set state
+		robot.clock.cleanup();
+		setTimeout(()=>robot.clock.update(robot), 10000 * 60);
 	}
 
 	reset(robot) {
@@ -77,9 +68,6 @@ export default class RobotState {
 			oil: 100
 		});
 		
-		//start clock
-		robot.energyInterval = setInterval(()=> robot.updateEnergy(), 1000 * 1);
-
-		robot.conditionInterval = setInterval(()=> robot.updateCondition(), 1000 * 2);
+		robot.clock.update(robot);
 	}
 }

@@ -8,10 +8,12 @@ import Health from './Health';
 import Messages from './Messages';
 import Bot from './Bot';
 import Controls from './Controls';
+import Clock from '../Clock';
 
 export default class Robot extends React.Component {
 	constructor(props) {
 		super(props);
+		this.clock = new Clock();
 		this.names = {'IDLE': 0, 'HUNGRY': 1, 'RUSTY': 2, 'DEAD': 3};
 		this.states = [new IdleState(), new HungryState(), new RustyState(), new DeadState()];
 		this.inputs = {'CHARGE': 0, 'OIL': 1, 'SLEEP': 2, 'ON_HUNGRY': 3, 'ON_RUSTY': 4, 'RESET': 5};
@@ -22,8 +24,7 @@ export default class Robot extends React.Component {
 			[this.names.RUSTY,this.names.IDLE,	this.names.RUSTY,	this.names.DEAD,	this.names.RUSTY,	this.names.IDLE],
 			[this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.DEAD,	this.names.IDLE]
 		];
-		this.energyInterval = null;
-		this.conditionInterval = null;
+		
 		this.ekg = null;
 		this.flatline = null;
 		this.state = {
@@ -79,8 +80,7 @@ export default class Robot extends React.Component {
 		}
 
 		if (this.state.currentState === this.names.DEAD) {
-			clearInterval(this.energyInterval);
-			clearInterval(this.conditionInterval);
+			this.clock.cleanup();
 			this.ekg.pause();
 			this.flatline.volume = .1;
 			this.flatline.play();
@@ -100,35 +100,18 @@ export default class Robot extends React.Component {
 		}
 
 		if (this.state.currentState === this.names.DEAD) {
-			clearInterval(this.energyInterval);
-			clearInterval(this.conditionInterval);
+			this.clock.cleanup();
 			this.ekg.pause();
 			this.flatline.play()
 		}
 	}
 
-	update() {
-		this.energyInterval = setInterval(()=>{
-			this.updateEnergy()}
-			, 1000 * 2);
-		
-
-		this.conditionInterval = setInterval(()=>
-			this.updateCondition(), 1000 * 3);
-	}
-
-	cleanup() {
-		clearInterval(this.energyInterval);
-		clearInterval(this.conditionInterval);
-	}
-
-
 	componentDidMount() {
-		this.update();
+		this.clock.update(this);
 	}
 
 	componentWillMount() {
-		this.cleanup();
+		this.clock.cleanup();
 	}
 
 	render() {
